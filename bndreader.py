@@ -1,7 +1,7 @@
 
 def preprocess(text):
     text = text.strip().split("\n")
-    return [x.strip() for x in text if "#" not in x[0:2] and "!" not in x[0:2]]
+    return [x.strip().split(",") for x in text if "#" not in x[0:2] and "!" not in x[0:2]]
 
 class parser:
     def __init__(self, filepath):
