@@ -1,39 +1,39 @@
 
-def preprocess(text):
-    text = text.strip().split("\n")
+def preprocess(fragment):
+    fragment = fragment.strip().split("\n")
     content, comments, scheme = [], [], []
-    for x in text:
-        x=x.strip()
-        if "#" not in x[0] and "!" not in x[0]:
-            content.append(x.split(","))
+    for line in fragment:
+        line=line.strip()
+        if "#" not in line[0] and "!" not in line[0]:
+            content.append(line.split(","))
         else:
-            comments.append(x.split(","))
-            if "! <" in x[0:3] and "! <#" not in x[0:4]:
+            comments.append(line.split(","))
+            if "! <" in line[0:3] and "! <#" not in line[0:4]:
                 char_to_replace = {'! ': '','#': '', '<':'', '>':''}
                 for key, value in char_to_replace.items():
-                    x = x.replace(key, value)
-                scheme.append(x.split(","))
+                    line = line.replace(key, value)
+                scheme.append(line.split(","))
     return content, comments, scheme
 
 class parser:
     def __init__(self, filepath):
 
-        text = open(filepath, "r").read()
+        file_conent = open(filepath, "r").read()
         separator = "! ==============================================================="
-        text_list = text.split(separator)
+        fragments = file_conent.split(separator)
 
-        self.ProgramVersion             = preprocess(text_list[0])  #scheme count
-        self.Nodes                      = preprocess(text_list[1])  #1
-        self.SuspiciousNodes            = preprocess(text_list[2])  #1
-        self.BranchLists                = preprocess(text_list[3])  #2
-        self.SupplyAirPaths             = preprocess(text_list[4])  #3-4
-        self.ReturnAirPaths             = preprocess(text_list[5])  #3-4
-        self.OutdoorAirNodes            = preprocess(text_list[6])  #0-1
-        self.ComponentSets              = preprocess(text_list[7])  #1
-        self.PlantLoops                 = preprocess(text_list[8])  #6
-        self.CondenserLoops             = preprocess(text_list[9])  #6
-        self.ControlledZones            = preprocess(text_list[10]) #3
-        self.ZoneEquipmentLists         = preprocess(text_list[11]) #2
-        self.AirLoopHVACs               = preprocess(text_list[12]) #9
-        self.ParentNodeConnections      = preprocess(text_list[13]) #1
-        self.NonParentNodeConnections   = preprocess(text_list[14]) #1
+        self.ProgramVersion             = preprocess(fragments[0])  #scheme count
+        self.Nodes                      = preprocess(fragments[1])  #1
+        self.SuspiciousNodes            = preprocess(fragments[2])  #1
+        self.BranchLists                = preprocess(fragments[3])  #2
+        self.SupplyAirPaths             = preprocess(fragments[4])  #3-4
+        self.ReturnAirPaths             = preprocess(fragments[5])  #3-4
+        self.OutdoorAirNodes            = preprocess(fragments[6])  #0-1
+        self.ComponentSets              = preprocess(fragments[7])  #1
+        self.PlantLoops                 = preprocess(fragments[8])  #6
+        self.CondenserLoops             = preprocess(fragments[9])  #6
+        self.ControlledZones            = preprocess(fragments[10]) #3
+        self.ZoneEquipmentLists         = preprocess(fragments[11]) #2
+        self.AirLoopHVACs               = preprocess(fragments[12]) #9
+        self.ParentNodeConnections      = preprocess(fragments[13]) #1
+        self.NonParentNodeConnections   = preprocess(fragments[14]) #1
