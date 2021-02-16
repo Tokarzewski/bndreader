@@ -2,7 +2,7 @@
 Python reader for EnergyPlus BND files.  
 
 
-BND files for detailed HVAC models were generated using DesignBuilder.  
+BND files from detailed HVAC models were generated using DesignBuilder.  
 Project created in Python and Rhino Grasshopper.
 
 
