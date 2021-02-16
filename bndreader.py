@@ -9,7 +9,7 @@ def preprocess(fragment):
         else:
             comments.append(line.split(","))
             if "! <" in line[0:3] and "! <#" not in line[0:4]:
-                char_to_replace = {'! ': '','#': '', '<':'', '>':''}
+                char_to_replace = {'! ': '','# ': '',' #' : '', '<':'', '>':''}
                 for key, value in char_to_replace.items():
                     line = line.replace(key, value)
                 scheme.append(line.split(","))
@@ -17,10 +17,9 @@ def preprocess(fragment):
 
 class parser:
     def __init__(self, filepath):
-
-        file_conent = open(filepath, "r").read()
+        file_content = open(filepath, "r").read()
         separator = "! ==============================================================="
-        fragments = file_conent.split(separator)
+        fragments = file_content.split(separator)
 
         self.ProgramVersion             = preprocess(fragments[0])  #scheme count
         self.Nodes                      = preprocess(fragments[1])  #1
@@ -37,3 +36,9 @@ class parser:
         self.AirLoopHVACs               = preprocess(fragments[12]) #9
         self.ParentNodeConnections      = preprocess(fragments[13]) #1
         self.NonParentNodeConnections   = preprocess(fragments[14]) #1
+        
+        self.Outputs = ['ProgramVersion','Nodes', 'SuspiciousNodes', 'BranchLists',
+            'SupplyAirPaths', 'ReturnAirPaths', 'OutdoorAirNodes',
+            'ComponentSets', 'PlantLoops', 'CondenserLoops', 
+            'ControlledZones', 'ZoneEquipmentLists', 'AirLoopHVACs',
+            'ParentNodeConnections', 'NonParentNodeConnections']
