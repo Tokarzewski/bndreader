@@ -21,20 +21,20 @@ print(*bnd.AirLoopHVACs[0], sep = "\n")
 """
 
 def ListOfValues(variable, schemeNr, properties):
-    content = eval("bnd."+variable+"[0]")
-    scheme = eval("bnd."+variable+"[2]["+str(schemeNr)+"]")
+    content = eval("bnd.{0}[0]".format(variable))
+    scheme = eval("bnd.{0}[2][{1}]".format(variable, schemeNr))
     index = scheme.index(properties)
     ListOfValues = [listv[index] for listv in content if listv[0] == scheme[0]]
     return ListOfValues
 
 def variable_json(variable):
     # schemes 0-9
-    schemes = [x[0] for x in eval("bnd."+variable+"[2]")]
+    schemes = [x[0] for x in eval("bnd.{0}[2]".format(variable))]
     i=0
     variable_json = {}
     for scheme in schemes:
         # properties 2-10
-        properties = eval("bnd."+variable+"[2]["+str(i)+"]")
+        properties = eval("bnd.{0}[2][{1}]".format(variable, i))
         properties = properties[1:] #remove name Node:['Node','Node',...]
         PropertiesValues = {prop:ListOfValues(variable,i,prop) for prop in properties}
         variable_json.update({scheme:PropertiesValues})
@@ -46,7 +46,8 @@ def bnd_json(variables):
     bnd_json = {}
     for variable in variables:
         bnd_json.update(variable_json(variable))
-    bnd_json['ProgramVersion'] = bnd.ProgramVersion[0][0][2].strip()
+    if 'ProgramVersion' in variables:
+        bnd_json['ProgramVersion'] = bnd.ProgramVersion[0][0][2].strip()
     return bnd_json
 
 bnd_json = bnd_json(bnd.Outputs)
