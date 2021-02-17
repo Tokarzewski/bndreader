@@ -5,7 +5,7 @@ filepath2 = "DOAS_Preheat.bnd"
 filepath3 = "FCU_Boiler_Chiller.bnd"
 filepath4 = "PTHP.bnd"
 
-bnd = bndreader.parser(filepath1)
+bnd = bndreader.parser(filepath2)
 
 #1 content, comments, scheme 
 #print(bnd.Nodes[0])
@@ -20,22 +20,41 @@ print("--Content--")
 print(*bnd.AirLoopHVACs[0], sep = "\n")
 """
 
-import json
+def ListOfValues(variable, schemeNr, properties):
+    content = eval("bnd."+variable+"[0]")
+    scheme = eval("bnd."+variable+"[2]["+str(schemeNr)+"]")
+    index = scheme.index(properties)
+    ListOfValues = [listv[index] for listv in content if listv[0] == scheme[0]]
+    return ListOfValues
 
-def output_scheme(output_variable):
-    bnd_json = {x[0] for x in eval("bnd."+output_variable+"[2]")}
-    bnd_json = dict.fromkeys(bnd_json)
+def variable_json(variable):
+    # schemes 0-9
+    schemes = [x[0] for x in eval("bnd."+variable+"[2]")]
     i=0
-    for key in bnd_json.keys():
-        bnd_json.update(eval("{key:bnd."+output_variable+"[2]["+str(i)+"]}"))
+    variable_json = {}
+    for scheme in schemes:
+        # properties 2-10
+        properties = eval("bnd."+variable+"[2]["+str(i)+"]")
+        properties = properties[1:] #remove name Node:['Node','Node',...]
+        PropertiesValues = {prop:ListOfValues(variable,i,prop) for prop in properties}
+        variable_json.update({scheme:PropertiesValues})
         i += 1
-    bnd_json = {output_variable:bnd_json}
-    return bnd_json
+    return {variable:variable_json}
 
-def bnd_scheme(outputs):
+def bnd_json(variables):
+    # variables 15
     bnd_json = {}
-    for x in outputs:
-        bnd_json.update(output_scheme(x))
+    for variable in variables:
+        bnd_json.update(variable_json(variable))
+    bnd_json['ProgramVersion'] = bnd.ProgramVersion[0][0][2].strip()
     return bnd_json
 
-print(json.dumps(bnd_scheme(bnd.Outputs), indent=4))
+bnd_json = bnd_json(bnd.Outputs)
+
+import json
+save = False
+if save:
+    with open('BND.json', 'w+') as json_file:
+        json.dump(bnd_json, json_file, indent=4)
+else: #print
+    print(json.dumps(bnd_json, indent=4))
