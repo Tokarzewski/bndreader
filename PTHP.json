@@ -1,0 +1,587 @@
+{
+    "ProgramVersion": "Version 9.4.0-998c4b761e",
+    "Nodes": {
+        "Node": {
+            "NodeNumber": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10"
+            ],
+            "Node Name": [
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET",
+                "BLOCK1:ZONE1 PTHP RETURN",
+                "BLOCK1:ZONE1 ZONE AIR NODE",
+                "BLOCK1:ZONE1 RETURN OUTLET",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR NODE NAME",
+                "BLOCK1:ZONE1 PTHP MIXED AIR OUTLET",
+                "BLOCK1:ZONE1 PTHP AIR RELIEF NODE NAME",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN OUTLET",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL OUTLET"
+            ],
+            "Node Fluid Type": [
+                "Air",
+                "Air",
+                "Air",
+                "Air",
+                "Air",
+                "Air",
+                "Air",
+                "Air",
+                "Air",
+                "Air"
+            ],
+            "Times Node Referenced After Definition": [
+                "4",
+                "3",
+                "0",
+                "0",
+                "1",
+                "1",
+                "0",
+                "1",
+                "1",
+                "1"
+            ]
+        }
+    },
+    "SuspiciousNodes": {
+        "Suspicious Node": {
+            "NodeNumber": [
+                "3",
+                "4",
+                "7"
+            ],
+            "Node Name": [
+                "BLOCK1:ZONE1 ZONE AIR NODE",
+                "BLOCK1:ZONE1 RETURN OUTLET",
+                "BLOCK1:ZONE1 PTHP AIR RELIEF NODE NAME"
+            ],
+            "Node Fluid Type": [
+                "Air",
+                "Air",
+                "Air"
+            ],
+            "Times Node Referenced After Definition": [
+                "0",
+                "0",
+                "0"
+            ]
+        }
+    },
+    "BranchLists": {
+        "Branch List": {
+            "Branch List Count": [],
+            "Branch List Name": [],
+            "Loop Name": [],
+            "Loop Type": [],
+            "Number of Branches": []
+        },
+        "Branch": {
+            "Branch Count": [],
+            "Branch Name": [],
+            "Loop Name": [],
+            "Loop Type": [],
+            "Branch Inlet Node Name": [],
+            "Branch Outlet Node Name": []
+        }
+    },
+    "SupplyAirPaths": {
+        "Supply Air Path": {
+            "Supply Air Path Count": [],
+            "Supply Air Path Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "Supply Air Path Component": {
+            "Component Count": [],
+            "Component Type": [],
+            "Component Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "Supply Air Path Component Nodes": {
+            "Node Count": [],
+            "Component Type": [],
+            "Component Name": [],
+            "Inlet Node Name": [],
+            "Outlet Node Name": [],
+            "AirLoopHVAC Name": []
+        }
+    },
+    "ReturnAirPaths": {
+        "Return Air Path": {
+            "Return Air Path Count": [],
+            "Return Air Path Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "Return Air Path Component": {
+            "Component Count": [],
+            "Component Type": [],
+            "Component Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "Return Air Path Component Nodes": {
+            "Node Count": [],
+            "Component Type": [],
+            "Component Name": [],
+            "Inlet Node Name": [],
+            "Outlet Node Name": [],
+            "AirLoopHVAC Name": []
+        }
+    },
+    "OutdoorAirNodes": {
+        "Outdoor Air Node": {
+            "NodeNumber": [
+                "5"
+            ],
+            "Node Name": [
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR NODE NAME"
+            ]
+        }
+    },
+    "ComponentSets": {
+        "Component Set": {
+            "Component Set Count": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+            ],
+            "Parent Object Type": [
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP",
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP",
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP",
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP",
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP"
+            ],
+            "Parent Object Name": [
+                "BLOCK1:ZONE1 PTHP",
+                "BLOCK1:ZONE1 PTHP",
+                "BLOCK1:ZONE1 PTHP",
+                "BLOCK1:ZONE1 PTHP",
+                "BLOCK1:ZONE1 PTHP"
+            ],
+            "Component Type": [
+                "OUTDOORAIR:MIXER",
+                "FAN:ONOFF",
+                "COIL:COOLING:DX:SINGLESPEED",
+                "COIL:HEATING:DX:SINGLESPEED",
+                "COIL:HEATING:ELECTRIC"
+            ],
+            "Component Name": [
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR MIXER",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL",
+                "BLOCK1:ZONE1 PTHP HEATING COIL"
+            ],
+            "Inlet Node ID": [
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR NODE NAME",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP MIXED AIR OUTLET",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN OUTLET"
+            ],
+            "Outlet Node ID": [
+                "BLOCK1:ZONE1 PTHP MIXED AIR OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN OUTLET",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET"
+            ],
+            "Description": [
+                "Air Nodes",
+                "Air Nodes",
+                "Air Nodes",
+                "Air Nodes",
+                "Air Nodes"
+            ]
+        }
+    },
+    "PlantLoops": {
+        "Plant Loop": {
+            "Plant Loop Name": [],
+            "Loop Type": [],
+            "Inlet Node Name": [],
+            "Outlet Node Name": [],
+            "Branch List": [],
+            "Connector List": []
+        },
+        "Plant Loop Connector": {
+            "Connector Type": [],
+            "Connector Name": [],
+            "Loop Name": [],
+            "Loop Type": [],
+            "Number of Inlets/Outlets": []
+        },
+        "Plant Loop Connector Branches": {
+            "Connector Node Count": [],
+            "Connector Type": [],
+            "Connector Name": [],
+            "Inlet Branch": [],
+            "Outlet Branch": [],
+            "Loop Name": [],
+            "Loop Type": []
+        },
+        "Plant Loop Connector Nodes": {
+            "Connector Node Count": [],
+            "Connector Type": [],
+            "Connector Name": [],
+            "Inlet Node": [],
+            "Outlet Node": [],
+            "Loop Name": [],
+            "Loop Type": []
+        },
+        "Plant Loop Supply Connection": {
+            "Plant Loop Name": [],
+            "Supply Side Outlet Node Name": [],
+            "Demand Side Inlet Node Name": []
+        },
+        "Plant Loop Return Connection": {
+            "Plant Loop Name": [],
+            "Demand Side Outlet Node Name": [],
+            "Supply Side Inlet Node Name": []
+        }
+    },
+    "CondenserLoops": {
+        "Condenser Loop": {
+            "Condenser Loop Name": [],
+            "Loop Type": [],
+            "Inlet Node Name": [],
+            "Outlet Node Name": [],
+            "Branch List": [],
+            "Connector List": []
+        },
+        "Condenser Loop Connector": {
+            "Connector Type": [],
+            "Connector Name": [],
+            "Loop Name": [],
+            "Loop Type": [],
+            "Number of Inlets/Outlets": []
+        },
+        "Condenser Loop Connector Branches": {
+            "Connector Node Count": [],
+            "Connector Type": [],
+            "Connector Name": [],
+            "Inlet Branch": [],
+            "Outlet Branch": [],
+            "Loop Name": [],
+            "Loop Type": []
+        },
+        "Condenser Loop Connector Nodes": {
+            "Connector Node Count": [],
+            "Connector Type": [],
+            "Connector Name": [],
+            "Inlet Node": [],
+            "Outlet Node": [],
+            "Loop Name": [],
+            "Loop Type": []
+        },
+        "Condenser Loop Supply Connection": {
+            "Condenser Loop Name": [],
+            "Supply Side Outlet Node Name": [],
+            "Demand Side Inlet Node Name": []
+        },
+        "Condenser Loop Return Connection": {
+            "Condenser Loop Name": [],
+            "Demand Side Outlet Node Name": [],
+            "Supply Side Inlet Node Name": []
+        }
+    },
+    "ControlledZones": {
+        "Controlled Zone": {
+            "Controlled Zone Name": [
+                "BLOCK1:ZONE1"
+            ],
+            "Equip List Name": [
+                "BLOCK1:ZONE1 EQUIPMENT"
+            ],
+            "Control List Name": [
+                ""
+            ],
+            "Zone Node Name": [
+                "BLOCK1:ZONE1 ZONE AIR NODE"
+            ],
+            "Inlet Nodes": [
+                "1"
+            ],
+            "Exhaust Nodes": [
+                "1"
+            ],
+            "Return Nodes": [
+                "1"
+            ]
+        },
+        "Controlled Zone Inlet": {
+            "Inlet Node Count": [
+                "1"
+            ],
+            "Controlled Zone Name": [
+                "BLOCK1:ZONE1"
+            ],
+            "Supply Air Inlet Node Name": [
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET"
+            ],
+            "SD Sys:Cooling/Heating [DD:Cooling] Inlet Node Name": [
+                "Undefined"
+            ],
+            "DD Sys:Heating Inlet Node Name": [
+                "N/A"
+            ]
+        },
+        "Controlled Zone Exhaust": {
+            "Exhaust Node Count": [
+                "1"
+            ],
+            "Controlled Zone Name": [
+                "BLOCK1:ZONE1"
+            ],
+            "Exhaust Air Node Name": [
+                "BLOCK1:ZONE1 PTHP RETURN"
+            ]
+        }
+    },
+    "ZoneEquipmentLists": {
+        "Zone Equipment List": {
+            "Zone Equipment List Count": [
+                "1"
+            ],
+            "Zone Equipment List Name": [
+                "BLOCK1:ZONE1 EQUIPMENT"
+            ],
+            "Zone Name": [
+                "BLOCK1:ZONE1"
+            ],
+            "Number of Components": [
+                "1"
+            ]
+        },
+        "Zone Equipment Component": {
+            "Component Count": [
+                "1"
+            ],
+            "Component Type": [
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP"
+            ],
+            "Component Name": [
+                "BLOCK1:ZONE1 PTHP"
+            ],
+            "Zone Name": [
+                "BLOCK1:ZONE1"
+            ],
+            "Heating Priority": [
+                "1"
+            ],
+            "Cooling Priority": [
+                "1"
+            ]
+        }
+    },
+    "AirLoopHVACs": {
+        "AirLoopHVAC": {
+            "Air Loop Name": [],
+            "Return Nodes": [],
+            "Supply Nodes": [],
+            "Zones Cooled": [],
+            "Zones Heated": [],
+            "Outdoor Air Used": []
+        },
+        "AirLoop Return Connections": {
+            "Connection Count": [],
+            "AirLoopHVAC Name": [],
+            "Zn Eqp Return Node": [],
+            "Zn Eqp Return Node Name": [],
+            "AirLoop Return Node": [],
+            "Air Loop Return Node Name": []
+        },
+        "AirLoop Supply Connections": {
+            "Connection Count": [],
+            "AirLoopHVAC Name": [],
+            "Zn Eqp Supply Node": [],
+            "Zn Eqp Supply Node Name": [],
+            "AirLoop Supply Node": [],
+            "Air Loop Supply Node Name": []
+        },
+        "Cooled Zone Info": {
+            "Cooled Zone Count": [],
+            "Cooled Zone Name": [],
+            "Cooled Zone Inlet Node": [],
+            "Cooled Zone Inlet Node Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "Heated Zone Info": {
+            "Heated Zone Count": [],
+            "Heated Zone Name": [],
+            "Heated Zone Inlet Node": [],
+            "Heated Zone Inlet Node Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "Outdoor Air Connections": {
+            "OA Inlet Node": [],
+            "OA Return Air Inlet Node Name": [],
+            "OA Outlet Node": [],
+            "OA Mixed Air Outlet Node Name": [],
+            "AirLoopHVAC Name": []
+        },
+        "AirLoopHVAC Connector": {
+            "Connector Type": [],
+            "Connector Name": [],
+            "Loop Name": [],
+            "Loop Type": [],
+            "Number of Inlets/Outlets": []
+        },
+        "AirLoopHVAC Connector Branches": {
+            "Connector Node Count": [],
+            "Connector Type": [],
+            "Connector Name": [],
+            "Inlet Branch": [],
+            "Outlet Branch": [],
+            "Loop Name": [],
+            "Loop Type": []
+        },
+        "AirLoopHVAC Connector Nodes": {
+            "Connector Node Count": [],
+            "Connector Type": [],
+            "Connector Name": [],
+            "Inlet Node": [],
+            "Outlet Node": [],
+            "Loop Name": [],
+            "Loop Type": []
+        }
+    },
+    "ParentNodeConnections": {
+        "Parent Node Connection": {
+            "Node Name": [
+                "BLOCK1:ZONE1 PTHP RETURN",
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET"
+            ],
+            "Node ObjectType": [
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP",
+                "ZONEHVAC:PACKAGEDTERMINALHEATPUMP"
+            ],
+            "Node ObjectName": [
+                "BLOCK1:ZONE1 PTHP",
+                "BLOCK1:ZONE1 PTHP"
+            ],
+            "Node ConnectionType": [
+                "Inlet",
+                "Outlet"
+            ],
+            "Node FluidStream": [
+                "1",
+                "1"
+            ]
+        }
+    },
+    "NonParentNodeConnections": {
+        "Non-Parent Node Connection": {
+            "Node Name": [
+                "BLOCK1:ZONE1 ZONE AIR NODE",
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET",
+                "BLOCK1:ZONE1 PTHP RETURN",
+                "BLOCK1:ZONE1 RETURN OUTLET",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR NODE NAME",
+                "BLOCK1:ZONE1 PTHP MIXED AIR OUTLET",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR NODE NAME",
+                "BLOCK1:ZONE1 PTHP AIR RELIEF NODE NAME",
+                "BLOCK1:ZONE1 PTHP RETURN",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN OUTLET",
+                "BLOCK1:ZONE1 PTHP MIXED AIR OUTLET",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET",
+                "BLOCK1:ZONE1 PTHP SUPPLY OUTLET"
+            ],
+            "Node ObjectType": [
+                "ZONEHVAC:EQUIPMENTCONNECTIONS",
+                "ZONEHVAC:EQUIPMENTCONNECTIONS",
+                "ZONEHVAC:EQUIPMENTCONNECTIONS",
+                "ZONEHVAC:EQUIPMENTCONNECTIONS",
+                "OUTDOORAIR:NODELIST",
+                "OUTDOORAIR:MIXER",
+                "OUTDOORAIR:MIXER",
+                "OUTDOORAIR:MIXER",
+                "OUTDOORAIR:MIXER",
+                "FAN:ONOFF",
+                "FAN:ONOFF",
+                "COIL:COOLING:DX:SINGLESPEED",
+                "COIL:COOLING:DX:SINGLESPEED",
+                "COIL:HEATING:DX:SINGLESPEED",
+                "COIL:HEATING:DX:SINGLESPEED",
+                "COIL:HEATING:ELECTRIC",
+                "COIL:HEATING:ELECTRIC",
+                "COIL:HEATING:ELECTRIC"
+            ],
+            "Node ObjectName": [
+                "BLOCK1:ZONE1",
+                "BLOCK1:ZONE1",
+                "BLOCK1:ZONE1",
+                "BLOCK1:ZONE1",
+                "OutdoorAir:NodeList",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR MIXER",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR MIXER",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR MIXER",
+                "BLOCK1:ZONE1 PTHP OUTDOOR AIR MIXER",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN",
+                "BLOCK1:ZONE1 PTHP SUPPLY FAN",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL",
+                "BLOCK1:ZONE1 PTHP DX COOLING COIL",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL",
+                "BLOCK1:ZONE1 PTHP DX HEATING COIL",
+                "BLOCK1:ZONE1 PTHP HEATING COIL",
+                "BLOCK1:ZONE1 PTHP HEATING COIL",
+                "BLOCK1:ZONE1 PTHP HEATING COIL"
+            ],
+            "Node ConnectionType": [
+                "ZoneNode",
+                "ZoneInlet",
+                "ZoneExhaust",
+                "ZoneReturn",
+                "OutdoorAir",
+                "Outlet",
+                "Inlet",
+                "ReliefAir",
+                "Inlet",
+                "Inlet",
+                "Outlet",
+                "Inlet",
+                "Outlet",
+                "Inlet",
+                "Outlet",
+                "Inlet",
+                "Outlet",
+                "Sensor"
+            ],
+            "Node FluidStream": [
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+            ]
+        }
+    }
+}
