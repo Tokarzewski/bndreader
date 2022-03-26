@@ -80,3 +80,18 @@ def save_as_json(filepath):
         from json import dump
         dump(bnd_json(bnd), file, indent=4)
         print(filename+'.json saved')
+
+def Graph(filepath):
+    bnd = parser(filepath)
+    json = bnd_json(bnd)
+
+    ParentNodeConnections = list(zip(json['ParentNodeConnections']['Parent Node Connection']['Node Name'], 
+                                    json['ParentNodeConnections']['Parent Node Connection']['Node ObjectName'])) 
+
+    NonParentNodeConnections = list(zip(json['NonParentNodeConnections']['Non-Parent Node Connection']['Node Name'], 
+                                        json['NonParentNodeConnections']['Non-Parent Node Connection']['Node ObjectName']))
+    import networkx as nx 
+    G = nx.Graph()
+    G.add_edges_from(ParentNodeConnections)
+    G.add_edges_from(NonParentNodeConnections)
+    return G
