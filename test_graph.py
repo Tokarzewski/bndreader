@@ -1,14 +1,12 @@
-import bndreader, os
-import networkx as nx
-import matplotlib.pyplot as plt
+import bndreader
 
-filepath1 = "Boiler_Convector.bnd"
-filepath2 = "DOAS_Preheat.bnd"
-filepath3 = "FCU_Boiler_Chiller.bnd"
-filepath4 = "PTHP.bnd"
+filepath1 = "files\Boiler_Convector.bnd"
+filepath2 = "files\DOAS_Preheat.bnd"
+filepath3 = "files\FCU_Boiler_Chiller.bnd"
+filepath4 = "files\PTHP.bnd"
 
-G = bndreader.Graph(filepath3)
-#print(G.edges)
-nx.draw(G)
-plt.savefig('graph_image.png')
-os.startfile('graph_image.png')
+filepaths = [filepath1,filepath2,filepath3,filepath4]
+
+for filepath in filepaths:
+    bndreader.save_as_json(filepath)
+    bndreader.print_graph(filepath, open=True) 

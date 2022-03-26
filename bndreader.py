@@ -1,3 +1,7 @@
+import networkx as nx 
+from os import startfile
+from os.path import splitext 
+
 def preprocess(fragment):
     fragment = fragment.strip().split("\n")
     content, scheme = [], []
@@ -42,46 +46,44 @@ class parser:
             'ControlledZones', 'ZoneEquipmentLists', 'AirLoopHVACs',
             'ParentNodeConnections', 'NonParentNodeConnections']
 
-def Output_schemesf(bnd, Output):
+def output_schemesf(bnd, Output):
     return getattr(bnd, Output)[0]
 
-def Output_contentsf(bnd, Output):
+def output_contentsf(bnd, Output):
     return getattr(bnd, Output)[1]
 
-def PropertyValues(bnd, Output, SchemeNr, Property):
-        Output_contents = Output_contentsf(bnd, Output)
-        Output_scheme = Output_schemesf(bnd, Output)[SchemeNr]
+def property_values(bnd, Output, SchemeNr, Property):
+        Output_contents = output_contentsf(bnd, Output)
+        Output_scheme = output_schemesf(bnd, Output)[SchemeNr]
         index = Output_scheme.index(Property)
         ListOfValues = [Output_content[index] for Output_content in Output_contents if Output_content[0] == Output_scheme[0]]
         return ListOfValues
 
-def Output_to_json(bnd, Output):
-    Output_scheme_names = [x[0] for x in Output_schemesf(bnd, Output)]
+def output_to_json(bnd, Output):
+    Output_scheme_names = [x[0] for x in output_schemesf(bnd, Output)]
     SchemeNr=0
     Output_json = {}
     for Output_scheme_name in Output_scheme_names:
-        Output_scheme = Output_schemesf(bnd, Output)[SchemeNr]
-        PropertiesValues = {Property:PropertyValues(bnd, Output, SchemeNr, Property) for Property in Output_scheme[1:]}
+        Output_scheme = output_schemesf(bnd, Output)[SchemeNr]
+        PropertiesValues = {Property:property_values(bnd, Output, SchemeNr, Property) for Property in Output_scheme[1:]}
         Output_json.update({Output_scheme_name:PropertiesValues})
         SchemeNr += 1
         #print(Output, "-", SchemeNr) #test how many schemes are in each output
     return Output_json
 
 def bnd_json(bnd):
-    bnd_json = {Output:Output_to_json(bnd, Output) for Output in bnd.Outputs}
+    bnd_json = {Output:output_to_json(bnd, Output) for Output in bnd.Outputs}
     bnd_json['ProgramVersion'] = bnd.ProgramVersion[1][0][2].strip()
     return bnd_json
 
 def save_as_json(filepath):
-    bnd = parser(filepath)
-    from os.path import splitext 
     filename = splitext(filepath)[0]
     with open(filename+'.json', 'w+') as file:
         from json import dump
-        dump(bnd_json(bnd), file, indent=4)
+        dump(bnd_json(parser(filepath)), file, indent=4)
         print(filename+'.json saved')
 
-def Graph(filepath):
+def graph(filepath):
     bnd = parser(filepath)
     json = bnd_json(bnd)
 
@@ -90,8 +92,16 @@ def Graph(filepath):
 
     NonParentNodeConnections = list(zip(json['NonParentNodeConnections']['Non-Parent Node Connection']['Node Name'], 
                                         json['NonParentNodeConnections']['Non-Parent Node Connection']['Node ObjectName']))
-    import networkx as nx 
     G = nx.Graph()
     G.add_edges_from(ParentNodeConnections)
     G.add_edges_from(NonParentNodeConnections)
     return G
+
+def print_graph(filepath, open=True):
+    import matplotlib.pyplot as plt
+    G = graph(filepath)
+    nx.draw(G)
+    plt.savefig(splitext(filepath)[0]+'.png')
+    if open:
+        startfile(splitext(filepath)[0]+'.png')
+    plt.close()
