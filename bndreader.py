@@ -19,7 +19,6 @@ def preprocess(fragment):
 
 class parser:
     def __init__(self, filepath):
-        self.filepath = filepath
         file_content = open(filepath, "r").read()
         separator = "! ==============================================================="
         Outputs = file_content.split(separator)
@@ -45,63 +44,71 @@ class parser:
             'ComponentSets', 'PlantLoops', 'CondenserLoops', 
             'ControlledZones', 'ZoneEquipmentLists', 'AirLoopHVACs',
             'ParentNodeConnections', 'NonParentNodeConnections']
+        
+    def bnd_json(self):
+        bnd_json = {Output:parser.output_to_json(self, Output) for Output in self.Outputs}
+        bnd_json['ProgramVersion'] = self.ProgramVersion[1][0][2].strip()
+        return bnd_json
 
-def output_schemesf(bnd, Output):
-    return getattr(bnd, Output)[0]
+    def output_schemesf(self, Output):
+        return getattr(self, Output)[0]
 
-def output_contentsf(bnd, Output):
-    return getattr(bnd, Output)[1]
+    def output_contentsf(self, Output):
+        return getattr(self, Output)[1]
 
-def property_values(bnd, Output, SchemeNr, Property):
-        Output_contents = output_contentsf(bnd, Output)
-        Output_scheme = output_schemesf(bnd, Output)[SchemeNr]
-        index = Output_scheme.index(Property)
-        ListOfValues = [Output_content[index] for Output_content in Output_contents if Output_content[0] == Output_scheme[0]]
-        return ListOfValues
+    def property_values(self, Output, SchemeNr, Property):
+            Output_contents = parser.output_contentsf(self, Output)
+            Output_scheme = parser.output_schemesf(self, Output)[SchemeNr]
+            index = Output_scheme.index(Property)
+            ListOfValues = [Output_content[index] for Output_content in Output_contents if Output_content[0] == Output_scheme[0]]
+            return ListOfValues
 
-def output_to_json(bnd, Output):
-    Output_scheme_names = [x[0] for x in output_schemesf(bnd, Output)]
-    SchemeNr=0
-    Output_json = {}
-    for Output_scheme_name in Output_scheme_names:
-        Output_scheme = output_schemesf(bnd, Output)[SchemeNr]
-        PropertiesValues = {Property:property_values(bnd, Output, SchemeNr, Property) for Property in Output_scheme[1:]}
-        Output_json.update({Output_scheme_name:PropertiesValues})
-        SchemeNr += 1
-        #print(Output, "-", SchemeNr) #test how many schemes are in each output
-    return Output_json
+    def output_to_json(self, Output):
+        Output_scheme_names = [x[0] for x in parser.output_schemesf(self, Output)]
+        SchemeNr=0
+        Output_json = {}
+        for Output_scheme_name in Output_scheme_names:
+            Output_scheme = parser.output_schemesf(self, Output)[SchemeNr]
+            PropertiesValues = {Property:parser.property_values(self, Output, SchemeNr, Property) for Property in Output_scheme[1:]}
+            Output_json.update({Output_scheme_name:PropertiesValues})
+            SchemeNr += 1
+            #print(Output, "-", SchemeNr) #test how many schemes are in each output
+        return Output_json
 
-def bnd_json(bnd):
-    bnd_json = {Output:output_to_json(bnd, Output) for Output in bnd.Outputs}
-    bnd_json['ProgramVersion'] = bnd.ProgramVersion[1][0][2].strip()
-    return bnd_json
+    def save_bnd_as_json(self, filepath):
+        filename = splitext(filepath)[0]
+        with open(filename+'.json', 'w+') as file:
+            from json import dump
+            dump(parser.bnd_json(self), file, indent=4)
+            print(filename+'.json saved')
 
-def save_as_json(filepath):
-    filename = splitext(filepath)[0]
-    with open(filename+'.json', 'w+') as file:
-        from json import dump
-        dump(bnd_json(parser(filepath)), file, indent=4)
-        print(filename+'.json saved')
+    def graph(self):
 
-def graph(filepath):
-    bnd = parser(filepath)
-    json = bnd_json(bnd)
+        json = parser.bnd_json(self)
+        G = nx.Graph()
 
-    ParentNodeConnections = list(zip(json['ParentNodeConnections']['Parent Node Connection']['Node Name'], 
-                                    json['ParentNodeConnections']['Parent Node Connection']['Node ObjectName'])) 
+        ParentNodeConnections = json['ParentNodeConnections']['Parent Node Connection']
+        ParentNodeConnectionsEdges = list(zip(ParentNodeConnections['Node Name'], 
+                                              ParentNodeConnections['Node ObjectName'])) 
 
-    NonParentNodeConnections = list(zip(json['NonParentNodeConnections']['Non-Parent Node Connection']['Node Name'], 
-                                        json['NonParentNodeConnections']['Non-Parent Node Connection']['Node ObjectName']))
-    G = nx.Graph()
-    G.add_edges_from(ParentNodeConnections)
-    G.add_edges_from(NonParentNodeConnections)
-    return G
+        NonParentNodeConnections = json['NonParentNodeConnections']['Non-Parent Node Connection']
+        NonParentNodeConnectionsEdges = list(zip(NonParentNodeConnections['Node Name'], 
+                                                 NonParentNodeConnections['Node ObjectName']))
+        
+        for node, ObjectType in zip(ParentNodeConnections['Node ObjectName'], ParentNodeConnections['Node ObjectType']): 
+            G.add_node(node, ObjectType=ObjectType)
+        for node, ObjectType in zip(NonParentNodeConnections['Node ObjectName'], NonParentNodeConnections['Node ObjectType']): 
+            G.add_node(node, ObjectType=ObjectType)
 
-def print_graph(filepath, open=True):
-    import matplotlib.pyplot as plt
-    G = graph(filepath)
-    nx.draw(G)
-    plt.savefig(splitext(filepath)[0]+'.png')
-    if open:
-        startfile(splitext(filepath)[0]+'.png')
-    plt.close()
+        G.add_edges_from(ParentNodeConnectionsEdges)                                         
+        G.add_edges_from(NonParentNodeConnectionsEdges)
+
+        return G
+
+    def graph_image(self, filepath, open=True):
+        import matplotlib.pyplot as plt
+        nx.draw(self.graph())
+        plt.savefig(splitext(filepath)[0]+'.png')
+        if open:
+            startfile(splitext(filepath)[0]+'.png')
+        plt.close()
